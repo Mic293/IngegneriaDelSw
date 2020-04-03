@@ -4,6 +4,7 @@ import java.util.*;
 
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMenu;
+import it.unibs.fp.mylib.NumeriCasuali;
 import it.unibs.fp.mylib.ServizioFile;
 
 public class Main {
@@ -67,7 +68,6 @@ public class Main {
 	public static final int MIN = 0;
 	
 	
-	
 	//Dichiarazioni variabili delle classi sistema domotico
 	private static Utente userManutentore= new Utente();
 	private static Utente userFruitore= new Utente();
@@ -77,7 +77,6 @@ public class Main {
 	//private static ArrayList<UnitaDomotica> listaUnitaDomotiche = new ArrayList <UnitaDomotica>();
 	private static ArrayList<UnitaRilevazione> listaSensori;
 	private static ArrayList<UnitaRilevazione> listaAttuatori;
-	
 	
 	
 	public static void main(String[] args) {
@@ -363,6 +362,7 @@ public class Main {
 				System.out.println("Info rilevabile già presente");
 			
 			risposta=InputDati.leggiStringaNonVuota("Vuoi Inserire un'altra informazione rilevabile? (si o no)");
+			
 		}while(risposta.equalsIgnoreCase("Si"));
 		
 		return categoria;
@@ -454,17 +454,17 @@ public class Main {
 				{
 					System.out.println("Il nome del sensore è : "+ unita.getNomeUnita());
 					
-					System.out.println("Lista delle informazioni rilevabili");
-					for(int i =0;i<((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).size();i++)
-						System.out.println(i+" - Nome: "+((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).getInfoRilevabile(i).getTipoInfoRilevabile());
-					int numeroInfoRilevabile = InputDati.leggiIntero("Inserire il numero dell'informazione rilevabile", 0,((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).size());
-					
 					//inserimento di valori rilevati in modo casuale
 						
-					((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).setValoreInfoRilevabile(
+					//il ciclo for assegna un valore casuale per ogni infoRilevabile della i-esima categoria
+					for(int c=0;c<((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).size();c++)
+					{	
+						((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).setValoreInfoRilevabile(
 								unita.getNomeUnita(),
-								(Double)Math.random()*40 , 
-								((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).getInfoRilevabile(numeroInfoRilevabile).getTipoInfoRilevabile());					
+								NumeriCasuali.estraiIntero(0, 40) , 
+								((CategoriaSensori)listaCategorie.getElemento(numeroCategoria)).getInfoRilevabile(c).getTipoInfoRilevabile());					
+						
+					}
 					listaUnita.add(unita);
 				}
 			}
@@ -503,7 +503,7 @@ public class Main {
 			if(immobile.getUnitaDomotica(i).getClass().getName().substring(11).equalsIgnoreCase(TYPEARTEFATTO) && ((Artefatto)immobile.getUnitaDomotica(i)).getStanza() != null )
 			{
 				System.out.println(immobile.getUnitaDomotica(i).getUnitName() + " - "+ immobile.getUnitaDomotica(i).getClass().getName().substring(11)+ 
-						" - Faccio parte di: "+((Artefatto)immobile.getUnitaDomotica(i)).getStanza());
+						" - Fa parte di: "+((Artefatto)immobile.getUnitaDomotica(i)).getStanza());
 			}
 			else
 			System.out.println(immobile.getUnitaDomotica(i).getUnitName() + " - "+ immobile.getUnitaDomotica(i).getClass().getName().substring(11));
@@ -558,17 +558,7 @@ public class Main {
 			
 			for(int c =0; c<((CategoriaSensori)listaCategoriaSensori.getElemento(i)).size();c++)
 			{
-				
-				Map <String,Double> temp = ((CategoriaSensori)listaCategoriaSensori.getElemento(i)).getInfoRilevabile(c).getListaMisurazioni();
-				
-				/*Iterator it = temp.entrySet().iterator();
-				while (it.hasNext()) 
-				{
-						System.out.println("Entro nel while");
-				        Map.Entry pair = (Map.Entry)it.next();
-				        System.out.println(pair.getKey() + " = " + pair.getValue());
-				        it.remove(); // avoids a ConcurrentModificationException
-				}*/
+				Map <String,Integer> temp = ((CategoriaSensori)listaCategoriaSensori.getElemento(i)).getInfoRilevabile(c).getListaMisurazioni();
 				temp.entrySet().forEach(entry->{
 				    System.out.println(entry.getKey() + " - " + entry.getValue());  
 				 });

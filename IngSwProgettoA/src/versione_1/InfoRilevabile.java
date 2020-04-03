@@ -7,12 +7,12 @@ import java.util.Map;
 public class InfoRilevabile implements Serializable{
 
 	private String tipoInfoRilevabile; //dominio
-	private Map<String, Double> listaMisurazioni;
+	private Map<String, Integer> listaMisurazioni;
 	
 	public InfoRilevabile(String _tipoInfoRilevabile)
 	{
 		this.tipoInfoRilevabile= _tipoInfoRilevabile;
-		listaMisurazioni= new HashMap<String, Double>();
+		listaMisurazioni= new HashMap<String, Integer>();
 	}
 	
 	public void setTipoInfoRilevabile(String _tipoInfoRilevabile)
@@ -25,7 +25,7 @@ public class InfoRilevabile implements Serializable{
 		return tipoInfoRilevabile;
 	}
 	
-	public void addMisurazione(String nomeSensore, Double misuraSensore)
+	public void addMisurazione(String nomeSensore, Integer misuraSensore)
 	{
 			listaMisurazioni.put(nomeSensore, misuraSensore);
 	}
@@ -35,7 +35,7 @@ public class InfoRilevabile implements Serializable{
 		return listaMisurazioni.size();
 	}
 	
-	public Map<String, Double> getListaMisurazioni()
+	public Map<String, Integer> getListaMisurazioni()
 	{
 		return listaMisurazioni;
 	}

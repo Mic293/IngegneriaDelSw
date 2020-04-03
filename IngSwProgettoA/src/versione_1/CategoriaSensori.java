@@ -1,7 +1,7 @@
 package versione_1;
 
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import it.unibs.fp.mylib.ServizioFile;
 public class CategoriaSensori extends Categoria {
 
 	private ArrayList<InfoRilevabile> infoRilevabili;
-	private File fileInfoRil = new File ("InfoRilevabili.txt");
+
 	
 	public CategoriaSensori(String nomeCategoria, String descrizione, ArrayList<InfoRilevabile> infoRilevabili){
 		super(nomeCategoria, descrizione);
@@ -33,20 +33,10 @@ public class CategoriaSensori extends Categoria {
 		return super.getNomeCategoria();
 	}
 	
-	public boolean addInfoRilevabili(InfoRilevabile infoRilevabile)
+	public void addInfoRilevabili(InfoRilevabile infoRilevabile)
 	{
-		if(infoRilevabili.isEmpty())
-		{
+		
 			infoRilevabili.add(infoRilevabile);
-			return true;
-		}
-			
-		else if(!infoGiaPresente(infoRilevabile.getTipoInfoRilevabile()))
-		{
-			infoRilevabili.add(infoRilevabile);
-			return true;
-		}
-		return false;
 		
 	}
 	
@@ -62,9 +52,9 @@ public class CategoriaSensori extends Categoria {
 	
 	public boolean infoGiaPresente(String infoRilevabile)
 	{
-		for(InfoRilevabile elemento: infoRilevabili)
+		for(int i =0; i<infoRilevabili.size();i++)
 		{
-			if(infoRilevabile.equals(elemento.getTipoInfoRilevabile()));
+			if(infoRilevabile.equalsIgnoreCase(infoRilevabili.get(i).getTipoInfoRilevabile()))
 			{
 				return true;
 			}
@@ -94,7 +84,7 @@ public class CategoriaSensori extends Categoria {
 		return infoRilevabili.get(i);
 	}
 	
-	public void setValoreInfoRilevabile(String nome, Double valore, String infoRilavabile)
+	public void setValoreInfoRilevabile(String nome, int valore, String infoRilavabile)
 	{
 		boolean presente = false;
 		for(int i =0;i<infoRilevabili.size() && !presente;i++)

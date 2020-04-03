@@ -59,15 +59,16 @@ public class CategoriaAttuatori extends Categoria{
 	
 	public boolean modalitaGiaPresente(String nomeModalita)
 	{
-		for(ModalitaOperativa elemento: listaModOperative)
+		boolean presente = false;
+		for(int i=0;i<listaModOperative.size();i++)
 		{
-			if(nomeModalita.equalsIgnoreCase(elemento.getNomeModOperativa()))
+			if(nomeModalita.equalsIgnoreCase(listaModOperative.get(i).getNomeModOperativa()))
 			{
-				return true;
+				presente = true;
 			}
 		}
 		
-		return false;
+		return presente;
 	}
 	
 	public String[] stampaModalitaOperative()
